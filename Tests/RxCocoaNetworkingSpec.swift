@@ -14,7 +14,7 @@ final class RxCocoaNetworkingSpec: QuickSpec {
     override func spec() {
         describe("RxCocoaNetworkingSpec") {
             it("works") {
-                expect(RxCocoaNetworking.name) == "RxCocoaNetworking"
+                expect(true).to(beTrue())
             }
         }
     }

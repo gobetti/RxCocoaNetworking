@@ -17,6 +17,12 @@ A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCoc
 - [Usage](#usage)
 - [License](#license)
 
+While [Moya](https://github.com/Moya/Moya) is built on top of [Alamofire](https://github.com/Alamofire/Alamofire) and provides an Rx extension with `Observable` signatures, **RxCocoaNetworking** is built on top of [RxCocoa](https://github.com/ReactiveX/RxSwift), which already provides extensions to `NSURLSession` with `Observable` signatures. If you love `Moya` like I do because of how organized it makes your network layer, and how easy and readable unit testing becomes; and if your project already depends on `RxCocoa`, then **RxCocoaNetworking** is for you.
+
+Thanks to the network request handling already embedded in `RxCocoa`, to Swift 4.1's conditional conformance (see [ReactiveURLSessionProtocol](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/ReactiveURLSessionProtocol.swift)) and heavily inspired by `Moya`'s architecture, **RxCocoaNetworking** provides you the same power and unit testing flexibility that `Moya` does, including full support to `TestScheduler` in a very lightweight framework.
+
+The motivation to write a new framework came from the fact that Moya's `MoyaProvider` implements the `delayed` `StubBehavior` with a real-time unit delay, preventing the usage of `RxTest` to assert this functionality. Being able to remove the dependency to `Alamofire` came next.
+
 ## Requirements
 
 - iOS 9.0+ / Mac OS X 10.11+ / tvOS 10.0+ / watchOS 3.0+

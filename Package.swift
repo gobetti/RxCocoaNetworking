@@ -10,6 +10,6 @@ import PackageDescription
 
 let package = Package(
     name: "RxCocoaNetworking",
-    dependencies: [],
+    dependencies: [.Package(url: "https://github.com/ReactiveX/RxSwift.git", majorVersion: 4)],
     exclude: ["Tests"]
 )

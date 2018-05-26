@@ -14,6 +14,8 @@ Pod::Spec.new do |s|
  s.subspec "Core" do |ss|
      ss.source_files  = "Sources/**/*.swift"
      ss.framework  = "Foundation"
+
+ s.dependency 'RxCocoa', '~> 4.0'
  end
 
 end
