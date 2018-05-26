@@ -8,8 +8,6 @@
 
 import Foundation
 
-class RxCocoaNetworking {
-    
+final class RxCocoaNetworking {
     static let name = "RxCocoaNetworking"
-    
 }

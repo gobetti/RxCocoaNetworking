@@ -5,12 +5,6 @@
       location = "group:RxCocoaNetworking.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:RxCocoaNetworking.playground">
-   </FileRef>
-   <FileRef
-      location = "group:scripts">
-   </FileRef>
-   <FileRef
       location = "group:CODE_OF_CONDUCT.md">
    </FileRef>
    <FileRef
@@ -23,7 +17,7 @@
       location = "group:LICENSE">
    </FileRef>
    <FileRef
-      location = "group:Readme.md">
+      location = "group:README.md">
    </FileRef>
    <FileRef
       location = "group:Cartfile">

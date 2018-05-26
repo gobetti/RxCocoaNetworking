@@ -10,7 +10,7 @@
 [![Travis](https://img.shields.io/travis/gobetti/RxCocoaNetworking/master.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking/branches)
 [![JetpackSwift](https://img.shields.io/badge/JetpackSwift-framework-red.svg)](http://github.com/JetpackSwift/FrameworkTemplate)
 
-A Moya-inspired, RxTest-testable networking framework built on top of RxCocoa
+A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCocoa`.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -19,8 +19,9 @@ A Moya-inspired, RxTest-testable networking framework built on top of RxCocoa
 
 ## Requirements
 
-- iOS 8.0+ / Mac OS X 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.0+
+- iOS 9.0+ / Mac OS X 10.11+ / tvOS 10.0+ / watchOS 3.0+
+- Xcode 9.3+
+- Swift 4.1
 
 ## Installation
 
@@ -38,10 +39,10 @@ To integrate RxCocoaNetworking into your Xcode project using CocoaPods, specify 
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
-pod 'RxCocoaNetworking', '~> 3.0.0'
+pod 'RxCocoaNetworking', '~> 0.0.1'
 ```
 
 Then, run the following command:
@@ -67,7 +68,7 @@ $ brew install carthage
 To integrate RxCocoaNetworking into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "gobetti/RxCocoaNetworking" ~> 3.0.0
+github "gobetti/RxCocoaNetworking" ~> 0.0.1
 ```
 
 </details>
@@ -83,7 +84,7 @@ import PackageDescription
 let package = Package(
     name: "HelloRxCocoaNetworking",
     dependencies: [
-        .Package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "3.0.0"))
+        .Package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.0.1"))
     ]
 )
 ```
@@ -130,7 +131,7 @@ $ git submodule update --init --recursive
 </p></details>
 
 <details>
-  <summary><strong>Embeded Binaries</strong></summary><p>
+  <summary><strong>Embedded Binaries</strong></summary><p>
 
 - Download the latest release from https://github.com/gobetti/RxCocoaNetworking/releases
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
@@ -140,52 +141,6 @@ $ git submodule update --init --recursive
 - And that's it!
 
 </p></details>
-
-### Manually
-
-If you prefer not to use either of the aforementioned dependency managers, you can integrate RxCocoaNetworking into your project manually.
-
-#### Git Submodules
-
-- Open up Terminal, `cd` into your top-level project directory, and run the following command "if" your project is not initialized as a git repository:
-
-```bash
-$ git init
-```
-
-- Add RxCocoaNetworking as a git [submodule](http://git-scm.com/docs/git-submodule) by running the following command:
-
-```bash
-$ git submodule add https://github.com/gobetti/RxCocoaNetworking.git
-$ git submodule update --init --recursive
-```
-
-- Open the new `RxCocoaNetworking` folder, and drag the `RxCocoaNetworking.xcodeproj` into the Project Navigator of your application's Xcode project.
-
-    > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
-
-- Select the `RxCocoaNetworking.xcodeproj` in the Project Navigator and verify the deployment target matches that of your application target.
-- Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
-- In the tab bar at the top of that window, open the "General" panel.
-- Click on the `+` button under the "Embedded Binaries" section.
-- You will see two different `RxCocoaNetworking.xcodeproj` folders each with two different versions of the `RxCocoaNetworking.framework` nested inside a `Products` folder.
-
-    > It does not matter which `Products` folder you choose from.
-
-- Select the `RxCocoaNetworking.framework`.
-
-- And that's it!
-
-> The `RxCocoaNetworking.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.
-
-#### Embeded Binaries
-
-- Download the latest release from https://github.com/gobetti/RxCocoaNetworking/releases
-- Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
-- In the tab bar at the top of that window, open the "General" panel.
-- Click on the `+` button under the "Embedded Binaries" section.
-- Add the downloaded `RxCocoaNetworking.framework`.
-- And that's it!
 
 ## Usage
 

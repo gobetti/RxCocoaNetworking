@@ -10,16 +10,12 @@ import Quick
 import Nimble
 @testable import RxCocoaNetworking
 
-class RxCocoaNetworkingSpec: QuickSpec {
-
+final class RxCocoaNetworkingSpec: QuickSpec {
     override func spec() {
-
         describe("RxCocoaNetworkingSpec") {
             it("works") {
                 expect(RxCocoaNetworking.name) == "RxCocoaNetworking"
             }
         }
-
     }
-
 }

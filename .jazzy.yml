@@ -1,7 +1,7 @@
 author: Marcelo Gobetti
 author_url: https://twitter.com/mwgobetti
 github_url: https://github.com/gobetti/RxCocoaNetworking
-root_url: https://gobetti.github.io/RxCocoaNetworking/
+root_url: https://github.com/gobetti/RxCocoaNetworking
 module: RxCocoaNetworking
 output: docs
 theme: fullwidth
