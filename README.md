@@ -1,14 +1,11 @@
 # RxCocoaNetworking
 
-[![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
-[![License](https://img.shields.io/cocoapods/l/RxCocoaNetworking.svg)](https://raw.githubusercontent.com/gobetti/RxCocoaNetworking/master/LICENSE)
 
-[![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Build Status](https://travis-ci.org/gobetti/RxCocoaNetworking.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master)
+
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
-
-[![Travis](https://img.shields.io/travis/gobetti/RxCocoaNetworking/master.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking/branches)
-[![JetpackSwift](https://img.shields.io/badge/JetpackSwift-framework-red.svg)](http://github.com/JetpackSwift/FrameworkTemplate)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCocoa`.
 
