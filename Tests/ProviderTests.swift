@@ -87,11 +87,9 @@ private enum MockTarget: TargetType {
         }
     }
     
-    var method: HTTPMethod { return .get }
-    
-    var sampleData: Data { return "".data(using: .utf8)! }
-    
-    var task: Task { return .requestPlain }
+    var task: Task { return Task(method: .get) }
     
     var headers: [String : String]? { return [:] }
+    
+    var sampleData: Data { return "".data(using: .utf8)! }
 }

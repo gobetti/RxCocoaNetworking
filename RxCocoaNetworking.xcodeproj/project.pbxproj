@@ -41,6 +41,10 @@
 		3A8B29E920BA2D0400769572 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B29E820BA2D0400769572 /* XCTest+Extensions.swift */; };
 		3A8B29EA20BA2D0400769572 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B29E820BA2D0400769572 /* XCTest+Extensions.swift */; };
 		3A8B29EB20BA2D0400769572 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B29E820BA2D0400769572 /* XCTest+Extensions.swift */; };
+		3AA60B3920C34C9E001F6332 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B3820C34C9E001F6332 /* Task.swift */; };
+		3AA60B3A20C34C9E001F6332 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B3820C34C9E001F6332 /* Task.swift */; };
+		3AA60B3B20C34C9E001F6332 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B3820C34C9E001F6332 /* Task.swift */; };
+		3AA60B3C20C34C9E001F6332 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B3820C34C9E001F6332 /* Task.swift */; };
 		3AEBEF5B20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEBEF5820BA11EB00704F50 /* ReactiveURLSessionProtocol.swift */; };
 		3AEBEF5C20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEBEF5820BA11EB00704F50 /* ReactiveURLSessionProtocol.swift */; };
 		3AEBEF5D20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEBEF5820BA11EB00704F50 /* ReactiveURLSessionProtocol.swift */; };
@@ -160,6 +164,7 @@
 		3A8B29E220BA299900769572 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/Mac/RxTest.framework; sourceTree = "<group>"; };
 		3A8B29E520BA2C6800769572 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/tvOS/RxTest.framework; sourceTree = "<group>"; };
 		3A8B29E820BA2D0400769572 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
+		3AA60B3820C34C9E001F6332 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		3AEBEF5820BA11EB00704F50 /* ReactiveURLSessionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveURLSessionProtocol.swift; sourceTree = "<group>"; };
 		3AEBEF5920BA11EB00704F50 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		3AEBEF5A20BA11EB00704F50 /* TargetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -333,6 +338,7 @@
 				3AEBEF5820BA11EB00704F50 /* ReactiveURLSessionProtocol.swift */,
 				3AEBEF8220BA17D200704F50 /* Stub.swift */,
 				3AEBEF5A20BA11EB00704F50 /* TargetType.swift */,
+				3AA60B3820C34C9E001F6332 /* Task.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -651,6 +657,7 @@
 				3AEBEF8320BA17D200704F50 /* Stub.swift in Sources */,
 				3AEBEF5B20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */,
 				3AEBEF6E20BA121000704F50 /* URLRequest+Extensions.swift in Sources */,
+				3AA60B3920C34C9E001F6332 /* Task.swift in Sources */,
 				3AEBEF5F20BA11EB00704F50 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,6 +670,7 @@
 				3AEBEF8620BA17D200704F50 /* Stub.swift in Sources */,
 				3AEBEF5E20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */,
 				3AEBEF7120BA121000704F50 /* URLRequest+Extensions.swift in Sources */,
+				3AA60B3C20C34C9E001F6332 /* Task.swift in Sources */,
 				3AEBEF6220BA11EB00704F50 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +683,7 @@
 				3AEBEF8420BA17D200704F50 /* Stub.swift in Sources */,
 				3AEBEF5C20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */,
 				3AEBEF6F20BA121000704F50 /* URLRequest+Extensions.swift in Sources */,
+				3AA60B3A20C34C9E001F6332 /* Task.swift in Sources */,
 				3AEBEF6020BA11EB00704F50 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +696,7 @@
 				3AEBEF8520BA17D200704F50 /* Stub.swift in Sources */,
 				3AEBEF5D20BA11EB00704F50 /* ReactiveURLSessionProtocol.swift in Sources */,
 				3AEBEF7020BA121000704F50 /* URLRequest+Extensions.swift in Sources */,
+				3AA60B3B20C34C9E001F6332 /* Task.swift in Sources */,
 				3AEBEF6120BA11EB00704F50 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

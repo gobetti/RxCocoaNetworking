@@ -27,15 +27,6 @@ public enum HTTPMethod: String {
     case trace = "TRACE"
 }
 
-/// https://github.com/Moya/Moya/blob/master/Sources/Moya/Task.swift
-public enum Task {
-    /// A request sent with encoded parameters.
-    case requestParameters(parameters: [String: String])
-    
-    /// A request with no additional data.
-    case requestPlain
-}
-
 /// https://github.com/Moya/Moya/blob/master/Sources/Moya/TargetType.swift
 /// Defines the contract for API models that are able to provide stubs by themselves.
 public protocol TargetType {
@@ -45,15 +36,13 @@ public protocol TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String { get }
     
-    /// The HTTP method used in the request.
-    var method: HTTPMethod { get }
-    
-    /// Provides stub data for use in testing.
-    var sampleData: Data { get }
-    
-    /// The type of HTTP task to be performed.
+    /// The HTTP task to be performed.
     var task: Task { get }
     
     /// The headers to be used in the request.
+    /// Essentially this should be part of `Task`, however headers are often reused by a `Target`'s endpoints.
     var headers: [String: String]? { get }
+    
+    /// Provides stub data for use in testing.
+    var sampleData: Data { get }
 }

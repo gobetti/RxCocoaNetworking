@@ -23,13 +23,11 @@ final public class Provider<Target: TargetType> {
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = target.method.rawValue
         request.allHTTPHeaderFields = target.headers
-        
-        switch target.task {
-        case .requestParameters(let parameters):
+        request.httpBody = target.task.body
+        request.httpMethod = target.task.method.rawValue
+        if let parameters = target.task.parameters {
             request = request.addingParameters(parameters)
-        case .requestPlain: break
         }
         
         return target.makeURLSession(stubBehavior: stubBehavior, scheduler: scheduler)
