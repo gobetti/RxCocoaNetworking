@@ -63,7 +63,7 @@ matrix:
       deploy:
         - provider: releases
           api_key:
-            secure: 
+            secure: TpLgXHD+SBT0JY8uo9FUBOtmeS3LC5A9EC1hxlnZRIXU1oMJ1VzhYCdiqQ7xRcFp9FngUc2XRWvHbXtzIx6YKuHd0/jAKZ5XFn8otwkrOpxYnZu3/I+xMlpKFeAoGEH2ILJlSQeglpYD/0Utd+EgkaAHs62143eAbiMoJvepEMOqRYzorpRTLd5aV+bYEXoggFmGOXy6SLTSIMHs/7mietIn0Fj9VD7BJej7Vazehzy3vd21rhrYHU5faJQjyx6oZ/Lx76fjLMozFpj6Bmq5jnyLdRk7UdvJxerfuT589QVHHlUuveJgMhUw0udz2qWn/dZXSlQANBjGy856Y6fdUUUcR31jfM+o8KR9WwW09Iq2jLmnQHKs2Qe5qnrQ6/FZS7zcxokE7sbOZ8rK8zU+i/DYistKfXI/B54vItqaq62VYFQGsmKjJdlMcwe3hDOEjsv3vHWtohngWi6JeuVuVRx0+yxIJZRhnkz3JSWA9UturlEdS0kN1jnuBm8tPFr1CF80YOKnFpltlm3LmTdYwn9//OS6PhVJT+nbZaW7aiLHUWf+7b95WRr8Bw+tGE8y/UgoS6LN5AByVLPcYfzF0JNEWAJtxXzlOTt5fXbD3N43exoC1gLBgR3bhs7uoOziYuRIWl3VmTuXIJbkPP7c5R3/sVdFNpcVP4hc8q/S+Cg=
           file:
             - RxCocoaNetworking.framework.zip
           skip_cleanup: true
