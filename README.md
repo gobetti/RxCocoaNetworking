@@ -81,13 +81,17 @@ github "gobetti/RxCocoaNetworking" ~> 0.0.1
 
 To use RxCocoaNetworking as a [Swift Package Manager](https://swift.org/package-manager/) package just add the following in your Package.swift file.
 
-``` swift
+```swift
+// swift-tools-version:4.1
 import PackageDescription
 
 let package = Package(
     name: "HelloRxCocoaNetworking",
     dependencies: [
-        .Package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.0.1"))
+        .package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.0.1"))
+    ],
+    targets: [
+        .target(name: "HelloRxCocoaNetworking", dependencies: ["RxCocoaNetworking"])
     ]
 )
 ```

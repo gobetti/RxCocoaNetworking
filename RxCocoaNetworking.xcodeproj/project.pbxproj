@@ -148,8 +148,6 @@
 		3549BB3B1DA389E800C63030 /* RxCocoaNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoaNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB481DA389F300C63030 /* RxCocoaNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoaNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB551DA38A5E00C63030 /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
-		3549BB571DA38A8800C63030 /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
-		3549BB581DA38A8800C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB611DA38ADB00C63030 /* RxCocoaNetworkingTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RxCocoaNetworkingTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB701DA38AEF00C63030 /* RxCocoaNetworkingTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RxCocoaNetworkingTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB7F1DA38B0000C63030 /* RxCocoaNetworkingTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RxCocoaNetworkingTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,9 +289,8 @@
 			isa = PBXGroup;
 			children = (
 				3A8B29C920BA257500769572 /* Extensions */,
-				3549BB8A1DA38C0A00C63030 /* RxCocoaNetworkingSpec.swift */,
 				3A8B29D220BA27B200769572 /* ProviderTests.swift */,
-				3549BB5B1DA38A8C00C63030 /* Supporting Files */,
+				3549BB8A1DA38C0A00C63030 /* RxCocoaNetworkingSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -304,15 +301,6 @@
 				3549BB181DA3890B00C63030 /* RxCocoaNetworking.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				3549BB551DA38A5E00C63030 /* Info-tvOS.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		3549BB5B1DA38A8C00C63030 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3549BB581DA38A8800C63030 /* Info.plist */,
-				3549BB571DA38A8800C63030 /* Info-tvOS.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
