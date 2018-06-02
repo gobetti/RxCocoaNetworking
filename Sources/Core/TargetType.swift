@@ -16,7 +16,15 @@
 import Foundation
 
 public enum HTTPMethod: String {
+    case connect = "CONNECT"
+    case delete = "DELETE"
     case get = "GET"
+    case head = "HEAD"
+    case options = "OPTIONS"
+    case patch = "PATCH"
+    case post = "POST"
+    case put = "PUT"
+    case trace = "TRACE"
 }
 
 /// https://github.com/Moya/Moya/blob/master/Sources/Moya/Task.swift
