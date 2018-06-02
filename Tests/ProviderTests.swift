@@ -26,9 +26,7 @@ class ProviderTests: XCTestCase {
     }
     
     func testValidURLRequestSucceeds() {
-        let events = self.simulatedEvents().map {
-            $0.map { $0 }
-        }
+        let events = self.simulatedEvents()
         let expected = [
             next(self.initialTime, MockTarget.validURL.sampleData),
             completed(self.initialTime)
@@ -45,9 +43,7 @@ class ProviderTests: XCTestCase {
         let integerResponseDelay = 5
         let responseDelay = TimeInterval(integerResponseDelay)
         
-        let events = self.simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .default)).map {
-            $0.map { $0 }
-        }
+        let events = self.simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .default))
         
         let expected = [
             next(integerResponseDelay, MockTarget.validURL.sampleData),
