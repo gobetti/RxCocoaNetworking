@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPathPattern": "/movie/[0-9]+/rating",
+    "queryParameters": {
+      "api_key": {
+        "equalTo": "1234567890"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.value"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "bodyFileName": "rate-movie.json"
+  }
+}

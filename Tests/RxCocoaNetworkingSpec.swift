@@ -1,11 +1,3 @@
-//
-//  RxCocoaNetworkingSpec.swift
-//  RxCocoaNetworking
-//
-//  Created by Marcelo Gobetti on 04/10/16.
-//  Copyright © 2017 gobetti. All rights reserved.
-//
-
 import Foundation
 import Quick
 import Nimble

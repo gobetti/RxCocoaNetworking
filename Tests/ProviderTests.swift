@@ -1,10 +1,3 @@
-//
-//  ProviderTests.swift
-//  CodeChallengeTests
-//
-//  Created by Marcelo Gobetti on 4/24/18.
-//
-
 import XCTest
 @testable import RxCocoaNetworking
 import RxSwift

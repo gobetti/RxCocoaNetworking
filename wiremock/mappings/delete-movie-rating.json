@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPathPattern": "/movie/[0-9]+/rating",
+    "queryParameters": {
+      "api_key": {
+        "equalTo": "1234567890"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "delete-movie-rating.json"
+  }
+}

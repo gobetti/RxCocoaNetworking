@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/movie/[0-9]+/reviews",
+    "queryParameters": {
+      "api_key": {
+        "equalTo": "1234567890"
+      },
+      "page": {
+        "matches": "[0-9]+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "get-movie-reviews.json"
+  }
+}

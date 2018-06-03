@@ -9,7 +9,7 @@ cache:
   directories:
     - $HOME/Library/Caches/org.carthage.CarthageKit/dependencies
     - Carthage
-    - vendor/bundle
+    - vendor
 xcode_workspace: RxCocoaNetworking.xcworkspace
 
 before_install:
@@ -17,6 +17,9 @@ before_install:
   - brew uninstall carthage
   - HOMEBREW_NO_AUTO_UPDATE=1 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/45dd24d8dfa7a2fb69812c678ceb34be0c16e295/Formula/carthage.rb # 0.29.0
 
+before_script:
+  - script/wiremock.sh &
+  - sleep 1
 script:
   - script/build
 
@@ -42,6 +45,9 @@ matrix:
         - JOB=PODSPEC
     - os: osx
       language: generic
+      before_script:
+        - script/wiremock.sh &
+        - sleep 1
       script:
         - swift build
         - swift test
