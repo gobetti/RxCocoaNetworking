@@ -47,6 +47,21 @@ extension MockAPI: TargetType {
     var headers: [String : String]? { return nil }
     
     var sampleData: Data {
-        return "".data(using: .utf8)!
+        switch self {
+        case .deleteRating:
+            return JSONHelper.data(fromFile: "delete-movie-rating")
+        case .rate:
+            return JSONHelper.data(fromFile: "rate-movie")
+        case .reviews:
+            return JSONHelper.data(fromFile: "get-movie-reviews")
+        }
+    }
+}
+
+private final class JSONHelper {
+    static func data(fromFile fileName: String) -> Data {
+        let bundle = Bundle(for: self)
+        return try! Data(contentsOf: bundle.url(forResource: fileName,
+                                                withExtension: "json")!)
     }
 }
