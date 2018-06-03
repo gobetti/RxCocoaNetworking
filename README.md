@@ -45,7 +45,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'RxCocoaNetworking', '~> 0.0.1'
+pod 'RxCocoaNetworking', '~> 0.1.0'
 ```
 
 Then, run the following command:
@@ -71,7 +71,7 @@ $ brew install carthage
 To integrate RxCocoaNetworking into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "gobetti/RxCocoaNetworking" ~> 0.0.1
+github "gobetti/RxCocoaNetworking" ~> 0.1.0
 ```
 
 </details>
@@ -88,7 +88,7 @@ import PackageDescription
 let package = Package(
     name: "HelloRxCocoaNetworking",
     dependencies: [
-        .package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.0.1"))
+        .package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.1.0"))
     ],
     targets: [
         .target(name: "HelloRxCocoaNetworking", dependencies: ["RxCocoaNetworking"])
@@ -150,6 +150,73 @@ $ git submodule update --init --recursive
 </p></details>
 
 ## Usage
+
+If you're already used to [Moya](https://github.com/Moya/Moya), the good news is that **RxCocoaNetworking** (intentionally) has a very similar architecture! All you need is to create a structure to represent your API - an `enum` is recommended - and have it implement the [`TargetType`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/TargetType.swift) protocol. Requests to your API are managed by a [`Provider`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/Provider.swift) which is typed to your `TargetType`-implementing structure.
+
+Both if you know Moya or not, the other good news is you can base off the example [`MockAPI`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/Example/MockAPI.swift) and its [spec](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/ExampleSpec.swift).
+
+<details>
+  <summary><strong>Summarized `MockAPI`</strong></summary><p>
+  
+```swift
+enum MockAPI {
+  // Endpoints as cases:
+  case rate(movieID: String, rating: Float)
+  case reviews(movieID: String, page: Int)
+}
+
+extension MockAPI: TargetType {
+  // Your API's base URL is usually what determines an API enum.
+  var baseURL: URL { return URL(string: "...")! }
+  
+  var path: String {
+    switch self {
+    case .rate(let movieID, _):
+      return "/movie/\(movieID)/rating"
+    case .reviews(let movieID, _):
+      return "/movie/\(movieID)/reviews"
+    }
+  }
+  
+  var task: Task {
+    // Specify GET/POST/etc., body and query parameters:
+    switch self {
+    case .rate(_, let rating):
+      return Task(method: .post, dictionaryBody: ["value": rating])
+    case .reviews(_, let page):
+      return Task(parameters: parameters)
+    }
+  }
+  
+  var headers: [String : String]? { return nil }
+  
+  var sampleData: Data {
+    ...
+  }
+}
+```
+  </p></details>
+
+###Regular network requests (no stubbing):
+```swift
+let provider = Provider<MockAPI>()
+```
+The default `Provider` parameters is most often what you'll use in production code.
+
+###Immediately stubbed network responses:
+```swift
+let provider = Provider<MockAPI>(stubBehavior: .immediate(stub: .default))
+```
+`stub: .default` means the `sampleData` from your API will be used. Other types allow you to define inline different responses.
+
+###RxTest-testable delayed stubbed network responses:
+```swift
+let testScheduler = TestScheduler(initialClock: 0)
+let provider = Provider<MockAPI>(stubBehavior: .delayed(time: 3,
+                                                        stub: .error(SomeError.anError)),
+                                 scheduler: testScheduler)
+```
+An `error` will be emitted 3 virtual time units after the subscription occurs.
 
 ## Contributing
 
