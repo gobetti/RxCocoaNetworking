@@ -50,7 +50,7 @@ matrix:
         - sleep 1
       script:
         - swift build
-        - script/wiremock.sh & swift test
+        - swift test
       env:
         - JOB=SWIFTPM_DARWIN
     - script:
