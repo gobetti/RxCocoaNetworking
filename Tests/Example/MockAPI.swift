@@ -61,7 +61,10 @@ extension MockAPI: TargetType {
 private final class JSONHelper {
     static func data(fromFile fileName: String) -> Data {
         let bundle = Bundle(for: self)
-        return try! Data(contentsOf: bundle.url(forResource: fileName,
-                                                withExtension: "json")!)
+        
+        // Nil-coalescing allows the resource to be found when testing with `swift test`:
+        let resourceURL = bundle.url(forResource: fileName, withExtension: "json") ??
+            bundle.resourceURL!.appendingPathComponent("../../../../../../wiremock/__files/\(fileName).json")
+        return try! Data(contentsOf: resourceURL)
     }
 }
