@@ -1,7 +1,7 @@
 # RxCocoaNetworking
 
 
-[![Build Status](https://travis-ci.org/gobetti/RxCocoaNetworking.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master)
+[![Build Status](https://travis-ci.org/gobetti/RxCocoaNetworking.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -197,19 +197,19 @@ extension MockAPI: TargetType {
 ```
   </p></details>
 
-###Regular network requests (no stubbing):
+### Regular network requests (no stubbing):
 ```swift
 let provider = Provider<MockAPI>()
 ```
 The default `Provider` parameters is most often what you'll use in production code.
 
-###Immediately stubbed network responses:
+### Immediately stubbed network responses:
 ```swift
 let provider = Provider<MockAPI>(stubBehavior: .immediate(stub: .default))
 ```
 `stub: .default` means the `sampleData` from your API will be used. Other types allow you to define inline different responses.
 
-###RxTest-testable delayed stubbed network responses:
+### RxTest-testable delayed stubbed network responses:
 ```swift
 let testScheduler = TestScheduler(initialClock: 0)
 let provider = Provider<MockAPI>(stubBehavior: .delayed(time: 3,
