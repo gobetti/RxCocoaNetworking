@@ -14,8 +14,8 @@ xcode_workspace: RxCocoaNetworking.xcworkspace
 
 before_install:
   - bundle install --path vendor/bundle
-  - brew uninstall carthage
-  - HOMEBREW_NO_AUTO_UPDATE=1 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/45dd24d8dfa7a2fb69812c678ceb34be0c16e295/Formula/carthage.rb # 0.29.0
+  - carthageversion=$(carthage version)
+  - if [ $carthageversion != "0.29.0" ]; then brew uninstall carthage; HOMEBREW_NO_AUTO_UPDATE=1 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/45dd24d8dfa7a2fb69812c678ceb34be0c16e295/Formula/carthage.rb; fi
 
 before_script:
   - script/wiremock.sh &
@@ -26,6 +26,7 @@ script:
 matrix:
   include:
     - stage: prepare carthage cache
+      before_script: skip
       script:
         - carthage bootstrap --no-use-binaries --cache-builds
     - stage: logic tests
@@ -38,6 +39,7 @@ matrix:
     - stage: Danger
       script: bundle exec danger
     - stage: package manager tests
+      before_script: skip
       script:
       - bundle exec pod repo update
       - bundle exec pod lib lint --allow-warnings # while RxSwift doesn't fix a warning
@@ -45,23 +47,25 @@ matrix:
         - JOB=PODSPEC
     - os: osx
       language: generic
-      before_script:
-        - script/wiremock.sh &
-        - sleep 1
       script:
         - swift build
         - swift test
       env:
         - JOB=SWIFTPM_DARWIN
-    - script:
+    - before_script: skip
+      script:
         - carthage build --cache-builds --no-skip-current --platform macOS
-    - script:
+    - before_script: skip
+      script:
         - carthage build --cache-builds --no-skip-current --platform iOS
-    - script:
+    - before_script: skip
+      script:
         - carthage build --cache-builds --no-skip-current --platform tvOS
-    - script:
+    - before_script: skip
+      script:
         - carthage build --cache-builds --no-skip-current --platform watchOS
     - stage: Deploy GitHub
+      before_script: skip
       script: skip
       before_deploy:
         - carthage build --no-skip-current --cache-builds
@@ -78,6 +82,7 @@ matrix:
             repo: gobetti/RxCocoaNetworking
             tags: true
     - stage: Deploy Cocoapods
+      before_script: skip
       script: skip
       env:
         - JOB=PODSPEC
