@@ -1,5 +1,6 @@
 # RxCocoaNetworking
 
+A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCocoa`.
 
 [![Build Status](https://travis-ci.org/gobetti/RxCocoaNetworking.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 
@@ -7,24 +8,94 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
-A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCocoa`.
-
 - [Requirements](#requirements)
-- [Installation](#installation)
 - [Usage](#usage)
+- [Installation](#installation)
+- [Contributing](#contributing)
 - [License](#license)
 
 While [Moya](https://github.com/Moya/Moya) is built on top of [Alamofire](https://github.com/Alamofire/Alamofire) and provides an Rx extension with `Observable` signatures, **RxCocoaNetworking** is built on top of [RxCocoa](https://github.com/ReactiveX/RxSwift), which already provides extensions to `NSURLSession` with `Observable` signatures. If you love `Moya` like I do because of how organized it makes your network layer, and how easy and readable unit testing becomes; and if your project already depends on `RxCocoa`, then **RxCocoaNetworking** is for you.
 
 Thanks to the network request handling already embedded in `RxCocoa`, to Swift 4.1's conditional conformance (see [ReactiveURLSessionProtocol](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/ReactiveURLSessionProtocol.swift)) and heavily inspired by `Moya`'s architecture, **RxCocoaNetworking** provides you the same power and unit testing flexibility that `Moya` does, including full support to `TestScheduler` in a very lightweight framework.
 
-The motivation to write a new framework came from the fact that Moya's `MoyaProvider` implements the `delayed` `StubBehavior` with a real-time unit delay, preventing the usage of `RxTest` to assert this functionality. Being able to remove the dependency to `Alamofire` came next.
+The motivation to write a new framework came from the fact that Moya's `MoyaProvider` implements the `delayed` stub behavior with a real-time unit delay, preventing the usage of `RxTest` to assert this functionality. Being able to remove the dependency to `Alamofire` came next, since most projects need a much simpler network layer.
 
 ## Requirements
 
-- iOS 9.0+ / Mac OS X 10.11+ / tvOS 10.0+ / watchOS 3.0+
-- Xcode 9.3+
-- Swift 4.1
+- 📱 iOS 9.0+ / Mac OS X 10.11+ / tvOS 10.0+ / watchOS 3.0+
+- 🛠 Xcode 9.3+
+- ✈️ Swift 4.1
+- ⚠️ RxCocoa
+- 🔥 Does not require Alamofire
+
+## Usage
+
+If you're already used to [Moya](https://github.com/Moya/Moya), the good news is that **RxCocoaNetworking** (intentionally) has a very similar architecture! All you need is to create a structure to represent your API - an `enum` is recommended - and have it implement the [`TargetType`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/TargetType.swift) protocol. Requests to your API are managed by a [`Provider`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/Provider.swift) which is typed to your concrete `TargetType`.
+
+Both if you're used to Moya or not, the other good news is that you can base off the example [`MockAPI`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/Example/MockAPI.swift) and its [spec](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/ExampleSpec.swift).
+
+<details>
+  <summary><strong>Summarized `MockAPI`</strong></summary><p>
+  
+```swift
+enum MockAPI {
+  // Endpoints as cases:
+  case rate(movieID: String, rating: Float)
+  case reviews(movieID: String, page: Int)
+}
+
+extension MockAPI: TargetType {
+  // Your API's base URL is usually what determines an API enum.
+  var baseURL: URL { return URL(string: "...")! }
+  
+  var path: String {
+    switch self {
+    case .rate(let movieID, _):
+      return "/movie/\(movieID)/rating"
+    case .reviews(let movieID, _):
+      return "/movie/\(movieID)/reviews"
+    }
+  }
+  
+  var task: Task {
+    // Specify GET/POST/etc., body and query parameters:
+    switch self {
+    case .rate(_, let rating):
+      return Task(method: .post, dictionaryBody: ["value": rating])
+    case .reviews(_, let page):
+      return Task(parameters: parameters)
+    }
+  }
+  
+  var headers: [String : String]? { return nil }
+  
+  var sampleData: Data {
+    ...
+  }
+}
+```
+  </p></details>
+
+### Regular network requests (no stubbing):
+```swift
+let provider = Provider<MockAPI>()
+```
+The default `Provider` parameters is most often what you'll use in production code.
+
+### Immediately stubbed network responses:
+```swift
+let provider = Provider<MockAPI>(stubBehavior: .immediate(stub: .default))
+```
+`stub: .default` means the `sampleData` from your API will be used. Other types allow you to define inline different responses.
+
+### `RxTest`-testable delayed stubbed network responses:
+```swift
+let testScheduler = TestScheduler(initialClock: 0)
+let provider = Provider<MockAPI>(stubBehavior: .delayed(time: 3,
+                                                        stub: .error(SomeError.anError)),
+                                 scheduler: testScheduler)
+```
+An `error` will be emitted 3 virtual time units after the subscription occurs.
 
 ## Installation
 
@@ -148,75 +219,6 @@ $ git submodule update --init --recursive
 - And that's it!
 
 </p></details>
-
-## Usage
-
-If you're already used to [Moya](https://github.com/Moya/Moya), the good news is that **RxCocoaNetworking** (intentionally) has a very similar architecture! All you need is to create a structure to represent your API - an `enum` is recommended - and have it implement the [`TargetType`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/TargetType.swift) protocol. Requests to your API are managed by a [`Provider`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/Provider.swift) which is typed to your `TargetType`-implementing structure.
-
-Both if you know Moya or not, the other good news is you can base off the example [`MockAPI`](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/Example/MockAPI.swift) and its [spec](https://github.com/gobetti/RxCocoaNetworking/blob/master/Tests/ExampleSpec.swift).
-
-<details>
-  <summary><strong>Summarized `MockAPI`</strong></summary><p>
-  
-```swift
-enum MockAPI {
-  // Endpoints as cases:
-  case rate(movieID: String, rating: Float)
-  case reviews(movieID: String, page: Int)
-}
-
-extension MockAPI: TargetType {
-  // Your API's base URL is usually what determines an API enum.
-  var baseURL: URL { return URL(string: "...")! }
-  
-  var path: String {
-    switch self {
-    case .rate(let movieID, _):
-      return "/movie/\(movieID)/rating"
-    case .reviews(let movieID, _):
-      return "/movie/\(movieID)/reviews"
-    }
-  }
-  
-  var task: Task {
-    // Specify GET/POST/etc., body and query parameters:
-    switch self {
-    case .rate(_, let rating):
-      return Task(method: .post, dictionaryBody: ["value": rating])
-    case .reviews(_, let page):
-      return Task(parameters: parameters)
-    }
-  }
-  
-  var headers: [String : String]? { return nil }
-  
-  var sampleData: Data {
-    ...
-  }
-}
-```
-  </p></details>
-
-### Regular network requests (no stubbing):
-```swift
-let provider = Provider<MockAPI>()
-```
-The default `Provider` parameters is most often what you'll use in production code.
-
-### Immediately stubbed network responses:
-```swift
-let provider = Provider<MockAPI>(stubBehavior: .immediate(stub: .default))
-```
-`stub: .default` means the `sampleData` from your API will be used. Other types allow you to define inline different responses.
-
-### RxTest-testable delayed stubbed network responses:
-```swift
-let testScheduler = TestScheduler(initialClock: 0)
-let provider = Provider<MockAPI>(stubBehavior: .delayed(time: 3,
-                                                        stub: .error(SomeError.anError)),
-                                 scheduler: testScheduler)
-```
-An `error` will be emitted 3 virtual time units after the subscription occurs.
 
 ## Contributing
 
