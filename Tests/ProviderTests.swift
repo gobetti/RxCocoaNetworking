@@ -14,21 +14,21 @@ class ProviderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.disposeBag = DisposeBag()
-        self.scheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+        disposeBag = DisposeBag()
+        scheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
     }
     
     func testValidURLRequestSucceeds() {
-        let events = self.simulatedEvents()
+        let events = simulatedEvents()
         let expected = [
-            next(self.initialTime, MockTarget.validURL.sampleData),
-            completed(self.initialTime)
+            next(initialTime, MockTarget.validURL.sampleData),
+            completed(initialTime)
         ]
         XCTAssertEqual(events, expected)
     }
     
     func testInvalidURLReturnsError() {
-        let events = self.simulatedEvents(target: MockTarget.wrongURL)
+        let events = simulatedEvents(target: MockTarget.wrongURL)
         XCTAssertThrowsError(events)
     }
     
@@ -36,7 +36,7 @@ class ProviderTests: XCTestCase {
         let integerResponseDelay = 5
         let responseDelay = TimeInterval(integerResponseDelay)
         
-        let events = self.simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .default))
+        let events = simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .default))
         
         let expected = [
             next(integerResponseDelay, MockTarget.validURL.sampleData),
@@ -46,18 +46,30 @@ class ProviderTests: XCTestCase {
         XCTAssertEqual(events, expected)
     }
     
-    func testErrorStubReturnsError() {
-        let events = self.simulatedEvents(stubBehavior: .immediate(stub: .error(TestError.someError)))
+    func testSuccessStubTriggersSuccess() {
+        let stubbedData = "".data(using: .utf8)!
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .success(stubbedData)))
+        
+        let expected = [
+            next(initialTime, stubbedData),
+            completed(initialTime)
+        ]
+        
+        XCTAssertEqual(events, expected)
+    }
+    
+    func testErrorStubTriggersError() {
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .error(TestError.someError)))
         XCTAssertThrowsError(events)
     }
     
     private func simulatedEvents(stubBehavior: StubBehavior = .immediate(stub: .default),
                                  target: MockTarget = MockTarget.validURL)
         -> [Recorded<Event<Data>>] {
-            let provider = Provider<MockTarget>(stubBehavior: stubBehavior, scheduler: self.scheduler)
+            let provider = Provider<MockTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
             let results = scheduler.createObserver(Data.self)
             
-            scheduler.scheduleAt(self.initialTime) {
+            scheduler.scheduleAt(initialTime) {
                 provider.request(target).asObservable()
                     .subscribe(results).disposed(by: self.disposeBag)
             }

@@ -38,27 +38,19 @@ final public class Provider<Target: TargetType> {
 // MARK: - Private
 // Entities and methods that are not supposed to be used outside a Provider
 private struct ReactiveURLSessionMock: ReactiveURLSessionProtocol {
-    private let stub: Stub
+    private let stubbed: Observable<Data>
     private let scheduler: SchedulerType
     private let delay: TimeInterval
     
-    init(stub: Stub, scheduler: SchedulerType, delay: TimeInterval = 0) {
-        self.stub = stub
+    init(stubbed: Observable<Data>, scheduler: SchedulerType, delay: TimeInterval = 0) {
+        self.stubbed = stubbed
         self.scheduler = scheduler
         self.delay = delay
     }
     
     func data(request: URLRequest) -> Observable<Data> {
-        switch stub {
-        case .success(let data):
-            let immediateResponse = Observable.just(data)
-            guard delay > 0 else { return immediateResponse }
-            return immediateResponse.delay(delay, scheduler: scheduler)
-        case .error(let error):
-            return .error(error)
-        case .default:
-            fatalError("Unhandled default stub")
-        }
+        guard delay > 0 else { return stubbed }
+        return stubbed.delay(delay, scheduler: scheduler)
     }
 }
 
@@ -67,20 +59,27 @@ private extension TargetType {
                         scheduler: SchedulerType) -> ReactiveURLSessionProtocol {
         switch stubBehavior {
         case .delayed(let time, let stub):
-            return ReactiveURLSessionMock(stub: makeStub(from: stub), scheduler: scheduler, delay: time)
+            return ReactiveURLSessionMock(stubbed: stub.makeResponse(for: self),
+                                          scheduler: scheduler,
+                                          delay: time)
         case .immediate(let stub):
-            return ReactiveURLSessionMock(stub: makeStub(from: stub), scheduler: scheduler)
+            return ReactiveURLSessionMock(stubbed: stub.makeResponse(for: self),
+                                          scheduler: scheduler)
         case .never:
             return URLSession.shared.rx
         }
     }
-    
-    func makeStub(from baseStub: Stub) -> Stub {
-        switch baseStub {
+}
+
+private extension Stub {
+    func makeResponse(for target: TargetType) -> Observable<Data> {
+        switch self {
         case .default:
-            return Stub.success(sampleData)
-        case .error, .success:
-            return baseStub
+            return .just(target.sampleData)
+        case .success(let data):
+            return .just(data)
+        case .error(let error):
+            return .error(error)
         }
     }
 }
