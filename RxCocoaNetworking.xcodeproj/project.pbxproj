@@ -48,12 +48,6 @@
 		3AA60B6C20C401AF001F6332 /* ExampleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleSpec.swift */; };
 		3AA60B6D20C401AF001F6332 /* ExampleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleSpec.swift */; };
 		3AA60B6E20C401AF001F6332 /* ExampleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleSpec.swift */; };
-		3AE6B5D820C4052D0005835B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D620C4052C0005835B /* Info.plist */; };
-		3AE6B5D920C4052D0005835B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D620C4052C0005835B /* Info.plist */; };
-		3AE6B5DA20C4052D0005835B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D620C4052C0005835B /* Info.plist */; };
-		3AE6B5DB20C4052D0005835B /* Info-tvOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D720C4052C0005835B /* Info-tvOS.plist */; };
-		3AE6B5DC20C4052D0005835B /* Info-tvOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D720C4052C0005835B /* Info-tvOS.plist */; };
-		3AE6B5DD20C4052D0005835B /* Info-tvOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AE6B5D720C4052C0005835B /* Info-tvOS.plist */; };
 		3AE6B5E020C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
 		3AE6B5E120C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
 		3AE6B5E220C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
@@ -602,7 +596,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = gobetti;
 				TargetAttributes = {
 					3549BB201DA389CD00C63030 = {
@@ -698,10 +692,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE6B5DB20C4052D0005835B /* Info-tvOS.plist in Resources */,
 				3AE6B61C20C480AC0005835B /* get-movie-reviews.json in Resources */,
 				3AE6B61920C480AC0005835B /* delete-movie-rating.json in Resources */,
-				3AE6B5D820C4052D0005835B /* Info.plist in Resources */,
 				3AE6B61F20C480AC0005835B /* rate-movie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -710,10 +702,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE6B5DD20C4052D0005835B /* Info-tvOS.plist in Resources */,
 				3AE6B61E20C480AC0005835B /* get-movie-reviews.json in Resources */,
 				3AE6B61B20C480AC0005835B /* delete-movie-rating.json in Resources */,
-				3AE6B5DA20C4052D0005835B /* Info.plist in Resources */,
 				3AE6B62120C480AC0005835B /* rate-movie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -722,10 +712,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE6B5DC20C4052D0005835B /* Info-tvOS.plist in Resources */,
 				3AE6B61D20C480AC0005835B /* get-movie-reviews.json in Resources */,
 				3AE6B61A20C480AC0005835B /* delete-movie-rating.json in Resources */,
-				3AE6B5D920C4052D0005835B /* Info.plist in Resources */,
 				3AE6B62020C480AC0005835B /* rate-movie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +849,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -868,6 +857,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -902,7 +892,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -923,6 +913,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -930,6 +921,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -956,7 +948,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1013,6 +1005,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1039,6 +1032,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1114,6 +1108,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1139,6 +1134,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
