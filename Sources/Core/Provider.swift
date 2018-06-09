@@ -7,11 +7,11 @@ enum ProviderError: Error {
 }
 
 /// A self-mockable network data requester.
-final public class Provider<Target: TargetType> {
-    private let stubBehavior: StubBehavior
+final public class Provider<Target: ProductionTargetType> {
+    private let stubBehavior: StubBehavior<Target.TargetStub>
     private let scheduler: SchedulerType
     
-    public init(stubBehavior: StubBehavior = .never,
+    public init(stubBehavior: StubBehavior<Target.TargetStub> = .never,
          scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.stubBehavior = stubBehavior
         self.scheduler = scheduler
@@ -30,7 +30,8 @@ final public class Provider<Target: TargetType> {
             request = request.addingParameters(parameters)
         }
         
-        return target.makeURLSession(stubBehavior: stubBehavior, scheduler: scheduler)
+        return URLSessionFactory(target: target)
+            .makeURLSession(stubBehavior: stubBehavior, scheduler: scheduler)
             .data(request: request).asSingle()
     }
 }
@@ -54,32 +55,21 @@ private struct ReactiveURLSessionMock: ReactiveURLSessionProtocol {
     }
 }
 
-private extension TargetType {
-    func makeURLSession(stubBehavior: StubBehavior,
+private struct URLSessionFactory<Target: ProductionTargetType> {
+    let target: Target
+    
+    func makeURLSession(stubBehavior: StubBehavior<Target.TargetStub>,
                         scheduler: SchedulerType) -> ReactiveURLSessionProtocol {
         switch stubBehavior {
         case .delayed(let time, let stub):
-            return ReactiveURLSessionMock(stubbed: stub.makeResponse(for: self),
+            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub),
                                           scheduler: scheduler,
                                           delay: time)
         case .immediate(let stub):
-            return ReactiveURLSessionMock(stubbed: stub.makeResponse(for: self),
+            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub),
                                           scheduler: scheduler)
         case .never:
             return URLSession.shared.rx
-        }
-    }
-}
-
-private extension Stub {
-    func makeResponse(for target: TargetType) -> Observable<Data> {
-        switch self {
-        case .default:
-            return .just(target.sampleData)
-        case .success(let data):
-            return .just(data)
-        case .error(let error):
-            return .error(error)
         }
     }
 }

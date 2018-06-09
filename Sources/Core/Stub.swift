@@ -14,23 +14,29 @@
  */
 
 import Foundation
+import RxSwift
+
+public enum ProductionStub {
+    case success(Data)
+    case error(Error)
+}
 
 /// The different types of stub, where `default` falls back to the `TargetType`'s `sampleData`.
 public enum Stub {
-  case `default`
-  case success(Data)
-  case error(Error)
+    case `default`
+    case success(Data)
+    case error(Error)
 }
 
 /// https://github.com/Moya/Moya/blob/master/Sources/Moya/MoyaProvider.swift
 /// The different stubbing modes.
-public enum StubBehavior {
-  /// Stubs and delays the response for a specified amount of time.
-  case delayed(time: TimeInterval, stub: Stub)
-  
-  /// Stubs the response without delaying it.
-  case immediate(stub: Stub)
-  
-  /// Does not stub the response.
-  case never
+public enum StubBehavior<AnyStub> {
+    /// Stubs and delays the response for a specified amount of time.
+    case delayed(time: TimeInterval, stub: AnyStub)
+    
+    /// Stubs the response without delaying it.
+    case immediate(stub: AnyStub)
+    
+    /// Does not stub the response.
+    case never
 }

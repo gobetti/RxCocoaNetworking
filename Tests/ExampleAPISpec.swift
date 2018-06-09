@@ -6,12 +6,25 @@ import RxSwift
 import XCTest
 @testable import RxCocoaNetworking
 
-final class ExampleSpec: QuickSpec {
+extension ExampleAPI: TargetType {
+    var sampleData: Data {
+        switch self {
+        case .deleteRating:
+            return JSONHelper.data(fromFile: "delete-movie-rating")
+        case .rate:
+            return JSONHelper.data(fromFile: "rate-movie")
+        case .reviews:
+            return JSONHelper.data(fromFile: "get-movie-reviews")
+        }
+    }
+}
+
+final class ExampleAPISpec: QuickSpec {
     override func spec() {
-        describe("MockAPI") {
+        describe("ExampleAPI") {
             var disposeBag: DisposeBag!
             
-            typealias SUT = MockAPI
+            typealias SUT = ExampleAPI
             let provider = Provider<SUT>()
             let stubbedProvider = Provider<SUT>(stubBehavior: .immediate(stub: .default))
             
@@ -108,5 +121,16 @@ final class ExampleSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+private final class JSONHelper {
+    static func data(fromFile fileName: String) -> Data {
+        let bundle = Bundle(for: self)
+        
+        // Nil-coalescing allows the resource to be found when testing with `swift test`:
+        let resourceURL = bundle.url(forResource: fileName, withExtension: "json") ??
+            bundle.resourceURL!.appendingPathComponent("../../../../../../wiremock/__files/\(fileName).json")
+        return try! Data(contentsOf: resourceURL)
     }
 }

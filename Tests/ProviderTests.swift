@@ -3,6 +3,8 @@ import XCTest
 import RxSwift
 import RxTest
 
+private let dummyData = "".data(using: .utf8)!
+
 enum TestError: Error {
     case someError
 }
@@ -18,17 +20,18 @@ class ProviderTests: XCTestCase {
         scheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
     }
     
+    // MARK: - ProductionTargetType
     func testValidURLRequestSucceeds() {
         let events = simulatedEvents()
         let expected = [
-            next(initialTime, MockTarget.validURL.sampleData),
+            next(initialTime, dummyData),
             completed(initialTime)
         ]
         XCTAssertEqual(events, expected)
     }
     
     func testInvalidURLReturnsError() {
-        let events = simulatedEvents(target: MockTarget.wrongURL)
+        let events = simulatedEvents(target: MockProductionTarget.wrongURL)
         XCTAssertThrowsError(events)
     }
     
@@ -36,17 +39,17 @@ class ProviderTests: XCTestCase {
         let integerResponseDelay = 5
         let responseDelay = TimeInterval(integerResponseDelay)
         
-        let events = simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .default))
+        let events = simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .success(dummyData)))
         
         let expected = [
-            next(integerResponseDelay, MockTarget.validURL.sampleData),
+            next(integerResponseDelay, dummyData),
             completed(integerResponseDelay)
         ]
         
         XCTAssertEqual(events, expected)
     }
     
-    func testSuccessStubTriggersSuccess() {
+    func testSuccessStubTriggersSuccessInProduction() {
         let stubbedData = "".data(using: .utf8)!
         let events = simulatedEvents(stubBehavior: .immediate(stub: .success(stubbedData)))
         
@@ -58,15 +61,15 @@ class ProviderTests: XCTestCase {
         XCTAssertEqual(events, expected)
     }
     
-    func testErrorStubTriggersError() {
+    func testErrorStubTriggersErrorInProduction() {
         let events = simulatedEvents(stubBehavior: .immediate(stub: .error(TestError.someError)))
         XCTAssertThrowsError(events)
     }
     
-    private func simulatedEvents(stubBehavior: StubBehavior = .immediate(stub: .default),
-                                 target: MockTarget = MockTarget.validURL)
+    private func simulatedEvents(stubBehavior: StubBehavior<MockProductionTarget.TargetStub> = .immediate(stub: .success(dummyData)),
+                                 target: MockProductionTarget = MockProductionTarget.validURL)
         -> [Recorded<Event<Data>>] {
-            let provider = Provider<MockTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
+            let provider = Provider<MockProductionTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
             let results = scheduler.createObserver(Data.self)
             
             scheduler.scheduleAt(initialTime) {
@@ -77,9 +80,55 @@ class ProviderTests: XCTestCase {
             
             return results.events
     }
+    
+    // MARK: - TargetType
+    func testDefaultStubTriggersSampleData() {
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .default),
+                                     target: MockTarget.validURL)
+        
+        let expected = [
+            next(initialTime, MockTarget.validURL.sampleData),
+            completed(initialTime)
+        ]
+        
+        XCTAssertEqual(events, expected)
+    }
+    
+    func testSuccessStubTriggersSuccess() {
+        let stubbedData = "".data(using: .utf8)!
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .success(stubbedData)),
+                                     target: MockTarget.validURL)
+        
+        let expected = [
+            next(initialTime, stubbedData),
+            completed(initialTime)
+        ]
+        
+        XCTAssertEqual(events, expected)
+    }
+    
+    func testErrorStubTriggersError() {
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .error(TestError.someError)),
+                                     target: MockTarget.validURL)
+        XCTAssertThrowsError(events)
+    }
+    
+    private func simulatedEvents(stubBehavior: StubBehavior<MockTarget.TargetStub>,
+                                 target: MockTarget) -> [Recorded<Event<Data>>] {
+        let provider = Provider<MockTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
+        let results = scheduler.createObserver(Data.self)
+        
+        scheduler.scheduleAt(initialTime) {
+            provider.request(target).asObservable()
+                .subscribe(results).disposed(by: self.disposeBag)
+        }
+        scheduler.start()
+        
+        return results.events
+    }
 }
 
-private enum MockTarget: TargetType {
+private enum MockProductionTarget: ProductionTargetType {
     case validURL
     case wrongURL
     
@@ -92,9 +141,21 @@ private enum MockTarget: TargetType {
         }
     }
     
-    var task: Task { return Task(method: .get) }
+    var task: Task { return Task() }
     
     var headers: [String : String]? { return [:] }
+}
+
+private enum MockTarget: TargetType {
+    case validURL
     
-    var sampleData: Data { return "".data(using: .utf8)! }
+    var baseURL: URL { return MockProductionTarget.validURL.baseURL }
+    
+    var path: String { return MockProductionTarget.validURL.path }
+    
+    var task: Task { return Task() }
+    
+    var headers: [String : String]? { return MockProductionTarget.validURL.headers }
+    
+    var sampleData: Data { return dummyData }
 }

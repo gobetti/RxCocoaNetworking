@@ -1,21 +1,13 @@
-//
-//  MockAPI.swift
-//  RxCocoaNetworking-Example-macOS
-//
-//  Created by Marcelo Gobetti on 6/3/18.
-//  Copyright © 2018 gobetti. All rights reserved.
-//
-
 import Foundation
 import RxCocoaNetworking
 
-enum MockAPI {
+enum ExampleAPI {
     case deleteRating(movieID: String)
     case rate(movieID: String, rating: Float)
     case reviews(movieID: String, page: Int)
 }
 
-extension MockAPI: TargetType {
+extension ExampleAPI: ProductionTargetType {
     var baseURL: URL { return URL(string: "http://localhost:8080")! }
     
     var path: String {
@@ -45,26 +37,4 @@ extension MockAPI: TargetType {
     }
     
     var headers: [String : String]? { return nil }
-    
-    var sampleData: Data {
-        switch self {
-        case .deleteRating:
-            return JSONHelper.data(fromFile: "delete-movie-rating")
-        case .rate:
-            return JSONHelper.data(fromFile: "rate-movie")
-        case .reviews:
-            return JSONHelper.data(fromFile: "get-movie-reviews")
-        }
-    }
-}
-
-private final class JSONHelper {
-    static func data(fromFile fileName: String) -> Data {
-        let bundle = Bundle(for: self)
-        
-        // Nil-coalescing allows the resource to be found when testing with `swift test`:
-        let resourceURL = bundle.url(forResource: fileName, withExtension: "json") ??
-            bundle.resourceURL!.appendingPathComponent("../../../../../../wiremock/__files/\(fileName).json")
-        return try! Data(contentsOf: resourceURL)
-    }
 }
