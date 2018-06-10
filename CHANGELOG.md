@@ -1,3 +1,11 @@
+# [0.2.0] - 2018-06-10
+### Added
+- `ProductionStub` enum, similar to `Stub` but not containing a `default` case
+
+### Changed
+- `TargetType` was split into 2 protocols, where `TargetType` is now a sub-protocol of `ProductionTargetType`
+- `ProductionTargetType` does not require `sampleData` and uses `ProductionStub`
+
 # [0.1.0] - 2018-06-03
 ### Added
 - Support to "all" (?) HTTP methods (all methods included in HTTP/1.1 spec, section 4.3, plus PATCH)

@@ -120,7 +120,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'RxCocoaNetworking', '~> 0.1.0'
+pod 'RxCocoaNetworking', '~> 0.2.0'
 ```
 
 Then, run the following command:
@@ -146,7 +146,7 @@ $ brew install carthage
 To integrate RxCocoaNetworking into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "gobetti/RxCocoaNetworking" ~> 0.1.0
+github "gobetti/RxCocoaNetworking" ~> 0.2.0
 ```
 
 </details>
@@ -163,7 +163,7 @@ import PackageDescription
 let package = Package(
     name: "HelloRxCocoaNetworking",
     dependencies: [
-        .package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.1.0"))
+        .package(url: "https://github.com/gobetti/RxCocoaNetworking.git", .upToNextMajor(from: "0.2.0"))
     ],
     targets: [
         .target(name: "HelloRxCocoaNetworking", dependencies: ["RxCocoaNetworking"])
