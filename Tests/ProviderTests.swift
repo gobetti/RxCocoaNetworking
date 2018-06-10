@@ -132,7 +132,7 @@ private enum MockProductionTarget: ProductionTargetType {
     case validURL
     case wrongURL
     
-    var baseURL: URL { return URL(string: "www.foo.com")! }
+    var baseURL: URL { return "www.foo.com" }
     
     var path: String {
         switch self {

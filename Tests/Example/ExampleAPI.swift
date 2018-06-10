@@ -8,7 +8,7 @@ enum ExampleAPI {
 }
 
 extension ExampleAPI: ProductionTargetType {
-    var baseURL: URL { return URL(string: "http://localhost:8080")! }
+    var baseURL: URL { return "http://localhost:8080" }
     
     var path: String {
         switch self {

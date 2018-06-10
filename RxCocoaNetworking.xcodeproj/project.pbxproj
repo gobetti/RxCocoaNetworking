@@ -48,6 +48,9 @@
 		3AA60B6C20C401AF001F6332 /* ExampleAPISpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleAPISpec.swift */; };
 		3AA60B6D20C401AF001F6332 /* ExampleAPISpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleAPISpec.swift */; };
 		3AA60B6E20C401AF001F6332 /* ExampleAPISpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA60B5C20C3FDDD001F6332 /* ExampleAPISpec.swift */; };
+		3AB418B02155F1A2005F337B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F65A20CDD0B600F3A0C8 /* URL+Extensions.swift */; };
+		3AB418B12155F1A2005F337B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F65A20CDD0B600F3A0C8 /* URL+Extensions.swift */; };
+		3AB418B22155F1A2005F337B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F65A20CDD0B600F3A0C8 /* URL+Extensions.swift */; };
 		3AE6B5E020C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
 		3AE6B5E120C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
 		3AE6B5E220C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */; };
@@ -188,6 +191,7 @@
 		3AA60B3820C34C9E001F6332 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		3AA60B4B20C3F590001F6332 /* ExampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
 		3AA60B5C20C3FDDD001F6332 /* ExampleAPISpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleAPISpec.swift; sourceTree = "<group>"; };
+		3AB8F65A20CDD0B600F3A0C8 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		3AE6B5D620C4052C0005835B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AE6B5D720C4052C0005835B /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SingleEvent+Extensions.swift"; sourceTree = "<group>"; };
@@ -381,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE6B5DF20C40D3C0005835B /* SingleEvent+Extensions.swift */,
+				3AB8F65A20CDD0B600F3A0C8 /* URL+Extensions.swift */,
 				3A8B29E820BA2D0400769572 /* XCTest+Extensions.swift */,
 			);
 			path = Extensions;
@@ -782,6 +787,7 @@
 				3A8B29E920BA2D0400769572 /* XCTest+Extensions.swift in Sources */,
 				3AA60B6C20C401AF001F6332 /* ExampleAPISpec.swift in Sources */,
 				3AE6B61220C4806C0005835B /* ExampleAPI.swift in Sources */,
+				3AB418B22155F1A2005F337B /* URL+Extensions.swift in Sources */,
 				3AE6B5E020C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */,
 				3AE6B62320C482C90005835B /* SingleEventSpec.swift in Sources */,
 			);
@@ -796,6 +802,7 @@
 				3A8B29EB20BA2D0400769572 /* XCTest+Extensions.swift in Sources */,
 				3AA60B6E20C401AF001F6332 /* ExampleAPISpec.swift in Sources */,
 				3AE6B61420C4806E0005835B /* ExampleAPI.swift in Sources */,
+				3AB418B12155F1A2005F337B /* URL+Extensions.swift in Sources */,
 				3AE6B5E220C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */,
 				3AE6B62520C482C90005835B /* SingleEventSpec.swift in Sources */,
 			);
@@ -810,6 +817,7 @@
 				3A8B29EA20BA2D0400769572 /* XCTest+Extensions.swift in Sources */,
 				3AA60B6D20C401AF001F6332 /* ExampleAPISpec.swift in Sources */,
 				3AE6B61320C4806D0005835B /* ExampleAPI.swift in Sources */,
+				3AB418B02155F1A2005F337B /* URL+Extensions.swift in Sources */,
 				3AE6B5E120C40D3C0005835B /* SingleEvent+Extensions.swift in Sources */,
 				3AE6B62420C482C90005835B /* SingleEventSpec.swift in Sources */,
 			);

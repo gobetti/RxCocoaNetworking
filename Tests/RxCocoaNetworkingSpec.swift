@@ -8,7 +8,7 @@ final class RxCocoaNetworkingSpec: QuickSpec {
         describe("URLRequest") {
             var request: URLRequest!
             beforeEach {
-                request = URLRequest(url: URL(string: "www.test.com/test")!)
+                request = URLRequest(url: "www.test.com/test")
             }
             
             describe("when parameters are added") {
