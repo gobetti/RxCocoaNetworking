@@ -11,8 +11,13 @@ final public class Provider<Target: ProductionTargetType> {
     private let stubBehavior: StubBehavior<Target.TargetStub>
     private let scheduler: SchedulerType
     
+    /// Initializes a new Provider instance.
+    ///
+    /// - Parameters:
+    ///   - stubBehavior: how stubbing should be done.
+    ///   - scheduler: the instance that will schedule delayed responses.
     public init(stubBehavior: StubBehavior<Target.TargetStub> = .never,
-         scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
+                scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.stubBehavior = stubBehavior
         self.scheduler = scheduler
     }
@@ -37,20 +42,21 @@ final public class Provider<Target: ProductionTargetType> {
 }
 
 // MARK: - Private
-// Entities and methods that are not supposed to be used outside a Provider
+// Entities that are not supposed to be used outside a Provider
 private struct ReactiveURLSessionMock: ReactiveURLSessionProtocol {
-    private let stubbed: Observable<Data>
-    private let scheduler: SchedulerType
-    private let delay: TimeInterval
-    
-    init(stubbed: Observable<Data>, scheduler: SchedulerType, delay: TimeInterval = 0) {
-        self.stubbed = stubbed
-        self.scheduler = scheduler
-        self.delay = delay
-    }
+    fileprivate let stubbed: Observable<Data>
     
     func data(request: URLRequest) -> Observable<Data> {
-        guard delay > 0 else { return stubbed }
+        return stubbed
+    }
+}
+
+private struct ReactiveURLSessionDelayableMock: ReactiveURLSessionProtocol {
+    fileprivate let stubbed: Observable<Data>
+    fileprivate let scheduler: SchedulerType
+    fileprivate let delay: TimeInterval
+    
+    func data(request: URLRequest) -> Observable<Data> {
         return stubbed.delay(delay, scheduler: scheduler)
     }
 }
@@ -61,13 +67,14 @@ private struct URLSessionFactory<Target: ProductionTargetType> {
     func makeURLSession(stubBehavior: StubBehavior<Target.TargetStub>,
                         scheduler: SchedulerType) -> ReactiveURLSessionProtocol {
         switch stubBehavior {
-        case .delayed(let time, let stub):
-            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub),
-                                          scheduler: scheduler,
-                                          delay: time)
+        case .delayed(let time, let stub) where time > 0:
+            return ReactiveURLSessionDelayableMock(stubbed: target.makeResponse(from: stub),
+                                                   scheduler: scheduler,
+                                                   delay: time)
+        case .delayed(_, let stub):
+            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub))
         case .immediate(let stub):
-            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub),
-                                          scheduler: scheduler)
+            return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub))
         case .never:
             return URLSession.shared.rx
         }

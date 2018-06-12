@@ -49,6 +49,28 @@ class ProviderTests: XCTestCase {
         XCTAssertEqual(events, expected)
     }
     
+    func testDelayedStubRespondsImmediatelyForNegativeDelay() {
+        let events = simulatedEvents(stubBehavior: .delayed(time: -1, stub: .success(dummyData)))
+        
+        let expected = [
+            next(initialTime, dummyData),
+            completed(initialTime)
+        ]
+        
+        XCTAssertEqual(events, expected)
+    }
+    
+    func testDelayedStubRespondsImmediatelyForZeroDelay() {
+        let events = simulatedEvents(stubBehavior: .delayed(time: 0, stub: .success(dummyData)))
+        
+        let expected = [
+            next(initialTime, dummyData),
+            completed(initialTime)
+        ]
+        
+        XCTAssertEqual(events, expected)
+    }
+    
     func testSuccessStubTriggersSuccessInProduction() {
         let stubbedData = "".data(using: .utf8)!
         let events = simulatedEvents(stubBehavior: .immediate(stub: .success(stubbedData)))
