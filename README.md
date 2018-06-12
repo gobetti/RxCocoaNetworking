@@ -1,8 +1,8 @@
 # RxCocoaNetworking
 
-A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCocoa`.
+An extremely lightweight networking framework built on top of `RxCocoa`, tailored for testing with `RxTest` and inspired by `Moya`.
 
-[![Build Status](https://travis-ci.org/gobetti/RxCocoaNetworking.svg)](https://travis-ci.org/gobetti/RxCocoaNetworking) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
+[![Swift 4.1+](https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat)](https://swift.org) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -14,11 +14,27 @@ A `Moya`-inspired, `RxTest`-testable networking framework built on top of `RxCoc
 - [Contributing](#contributing)
 - [License](#license)
 
-While [Moya](https://github.com/Moya/Moya) is built on top of [Alamofire](https://github.com/Alamofire/Alamofire) and provides an Rx extension with `Observable` signatures, **RxCocoaNetworking** is built on top of [RxCocoa](https://github.com/ReactiveX/RxSwift), which already provides extensions to `NSURLSession` with `Observable` signatures. If you love `Moya` like I do because of how organized it makes your network layer, and how easy and readable unit testing becomes; and if your project already depends on `RxCocoa`, then **RxCocoaNetworking** is for you.
+While [Moya](https://github.com/Moya/Moya) is built on top of [Alamofire](https://github.com/Alamofire/Alamofire) and provides an Rx extension with `Observable` signatures, **RxCocoaNetworking** is built on top of [RxCocoa](https://github.com/ReactiveX/RxSwift), which already provides extensions to `NSURLSession` with `Observable` signatures. **RxCocoaNetworking** was made for you if:
 
-Thanks to the network request handling already embedded in `RxCocoa`, to Swift 4.1's conditional conformance (see [ReactiveURLSessionProtocol](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/ReactiveURLSessionProtocol.swift)) and heavily inspired by `Moya`'s architecture, **RxCocoaNetworking** provides you the same power and unit testing flexibility that `Moya` does, including full support to `TestScheduler` in a very lightweight framework.
+- ✅ you love how `Moya` keeps your network layer clean, readable and testable;
+- ✅ the power of Alamofire+Moya is too much for your needs;
+- ✅ your project already depends on `RxCocoa`.
 
-The main motivation to write a new framework came from the fact that Moya's `MoyaProvider` implements the `delayed` stub behavior with a real-time unit delay, preventing the usage of `RxTest` to assert this functionality. Other details came next, like removing `Alamofire` and the requirement for `sampleData`, among other minor details.
+... and extra points if:
+
+- ✅ you'd like to use `RxTest` for testing `delayed` stubs;
+- ✅ you don't like to implement `sampleData` in your production target;
+- ✅ you feel you could have less code for the simple APIs you use.
+
+Note though that this is **by no means a full replacement** to Alamofire+Moya. For example, you may miss features which will only ever be supported if **RxCocoaNetworking** is kept extremely lightweight, e.g.:
+
+- ❌ anything other than `Data` on successful responses;
+- ❌ file upload;
+- ❌ plugins (interceptors).
+
+... in which case Alamofire+Moya would be a better bet.
+
+This framework was made possible thanks to the network request handling already embedded in `RxCocoa`, together with Swift 4.1's conditional conformance (see [ReactiveURLSessionProtocol](https://github.com/gobetti/RxCocoaNetworking/blob/master/Sources/Core/ReactiveURLSessionProtocol.swift)).
 
 ## Requirements
 
