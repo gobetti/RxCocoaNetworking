@@ -5,7 +5,8 @@ extension URLRequest {
         guard !parameters.isEmpty else { return self }
         guard let url = url else { return self }
         
-        let query = parameters.compactMap { key, value in
+        let query = parameters.keys.sorted().compactMap { key in
+            let value = parameters[key]!
             guard let escapedKey = key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                 let escapedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
                     return nil
