@@ -1,3 +1,7 @@
+# [0.2.1] - 2018-09-22
+### Added
+- Support to Swift 4.2 (still works with Swift 4.1)
+
 # [0.2.0] - 2018-06-10
 ### Added
 - `ProductionStub` enum, similar to `Stub` but not containing a `default` case
