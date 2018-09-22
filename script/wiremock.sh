@@ -8,6 +8,7 @@ PORT=8080
 project=RxCocoaNetworking
 rootdir=${PWD%%${project}*}${project}
 
+mkdir -p $rootdir/vendor
 cd $rootdir/vendor
 
 wiremock=wiremock-standalone-$VERSION.jar

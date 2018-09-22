@@ -244,6 +244,18 @@ $ git submodule update --init --recursive
 
 Issues and pull requests are welcome!
 
+Once you clone the project, all you need to do before building it is to install the Carthage dependencies:
+
+```bash
+$ carthage bootstrap
+```
+
+Then to successfully run the unit tests, you need to have the wiremock script running in the background:
+
+```bash
+$ ./script/wiremock.sh
+```
+
 ## Author
 
 Marcelo Gobetti [@mwgobetti](https://twitter.com/mwgobetti)
