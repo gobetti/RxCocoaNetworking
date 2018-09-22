@@ -2,7 +2,7 @@
 
 An extremely lightweight networking framework built on top of `RxCocoa`, tailored for testing with `RxTest` and inspired by `Moya`.
 
-[![Swift 4.1+](https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat)](https://swift.org) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
+[![Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat)](https://swift.org) [![codecov.io](http://codecov.io/github/gobetti/RxCocoaNetworking/coverage.svg?branch=master)](http://codecov.io/github/gobetti/RxCocoaNetworking?branch=master) [![Platforms](https://img.shields.io/cocoapods/p/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/RxCocoaNetworking.svg)](https://cocoapods.org/pods/RxCocoaNetworking)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -134,7 +134,6 @@ To integrate RxCocoaNetworking into your Xcode project using CocoaPods, specify 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
-use_frameworks!
 
 pod 'RxCocoaNetworking', '~> 0.2.0'
 ```

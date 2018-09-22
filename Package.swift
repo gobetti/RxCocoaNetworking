@@ -9,9 +9,9 @@ let package = Package(
             targets: ["RxCocoaNetworking"]),
         ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.1.0")),
-        .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "1.3.0")),
-        .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "7.1.0"))
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.3.0")),
+        .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "1.3.1")),
+        .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "7.1.2"))
         ],
     targets: [
         .target(

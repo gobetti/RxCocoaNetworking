@@ -41,7 +41,7 @@ matrix:
       before_script: skip
       script:
       - bundle exec pod repo update
-      - bundle exec pod lib lint --allow-warnings # while RxSwift doesn't fix a warning
+      - bundle exec pod lib lint
       env:
         - JOB=PODSPEC
     - os: osx
@@ -87,7 +87,7 @@ matrix:
         - JOB=PODSPEC
       deploy:
         - provider: script
-          script: bundle exec pod trunk push --allow-warnings # while RxSwift doesn't fix a warning
+          script: bundle exec pod trunk push
           skip_cleanup: true
           on:
             tags: true
