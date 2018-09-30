@@ -88,7 +88,12 @@ class ProviderTests: XCTestCase {
         XCTAssertThrowsError(events)
     }
     
-    private func simulatedEvents(stubBehavior: StubBehavior<MockProductionTarget.TargetStub> = .immediate(stub: .success(dummyData)),
+    func testDefaultStubTriggersErrorInProduction() {
+        let events = simulatedEvents(stubBehavior: .immediate(stub: .default))
+        XCTAssertThrowsError(events)
+    }
+    
+    private func simulatedEvents(stubBehavior: StubBehavior = .immediate(stub: .success(dummyData)),
                                  target: MockProductionTarget = MockProductionTarget.validURL)
         -> [Recorded<Event<Data>>] {
             let provider = Provider<MockProductionTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
@@ -135,7 +140,7 @@ class ProviderTests: XCTestCase {
         XCTAssertThrowsError(events)
     }
     
-    private func simulatedEvents(stubBehavior: StubBehavior<MockTarget.TargetStub>,
+    private func simulatedEvents(stubBehavior: StubBehavior,
                                  target: MockTarget) -> [Recorded<Event<Data>>] {
         let provider = Provider<MockTarget>(stubBehavior: stubBehavior, scheduler: scheduler)
         let results = scheduler.createObserver(Data.self)

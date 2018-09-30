@@ -31,8 +31,6 @@ public enum HTTPMethod: String {
 /// https://github.com/Moya/Moya/blob/master/Sources/Moya/TargetType.swift
 /// Defines the contract for API structures.
 public protocol ProductionTargetType {
-    associatedtype TargetStub = ProductionStub
-    
     /// The target's base `URL`.
     var baseURL: URL { get }
     
@@ -47,33 +45,25 @@ public protocol ProductionTargetType {
     var headers: [String: String]? { get }
     
     /// Factory method that converts a `TargetStub` into an immediate `Data` response.
-    func makeResponse(from stub: TargetStub) -> Observable<Data>
+    func makeResponse(from stub: Stub) -> Observable<Data>
 }
 
 /// Defines the contract for API structures that provide stubs for themselves.
 /// It is recommended to implement this protocol separately in the Tests target.
-public protocol TargetType: ProductionTargetType where TargetStub == Stub {
+public protocol TargetType: ProductionTargetType {
     /// Provides stub data for use in testing.
     var sampleData: Data { get }
 }
 
 // MARK: - Default implementations
-public extension ProductionTargetType where TargetStub == ProductionStub {
-    func makeResponse(from stub: TargetStub) -> Observable<Data> {
-        switch stub {
-        case .success(let data):
-            return .just(data)
-        case .error(let error):
-            return .error(error)
-        }
-    }
-}
-
-public extension TargetType where TargetStub == Stub {
-    func makeResponse(from stub: TargetStub) -> Observable<Data> {
+public extension ProductionTargetType {
+    func makeResponse(from stub: Stub) -> Observable<Data> {
         switch stub {
         case .default:
-            return .just(sampleData)
+            guard let targetType = self as? TargetType else {
+                return .error(StubError.notTargetType)
+            }
+            return .just(targetType.sampleData)
         case .success(let data):
             return .just(data)
         case .error(let error):

@@ -8,7 +8,7 @@ enum ProviderError: Error {
 
 /// A self-mockable network data requester.
 final public class Provider<Target: ProductionTargetType> {
-    private let stubBehavior: StubBehavior<Target.TargetStub>
+    private let stubBehavior: StubBehavior
     private let scheduler: SchedulerType
     
     /// Initializes a new Provider instance.
@@ -16,7 +16,7 @@ final public class Provider<Target: ProductionTargetType> {
     /// - Parameters:
     ///   - stubBehavior: how stubbing should be done.
     ///   - scheduler: the instance that will schedule delayed responses.
-    public init(stubBehavior: StubBehavior<Target.TargetStub> = .never,
+    public init(stubBehavior: StubBehavior = .never,
                 scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.stubBehavior = stubBehavior
         self.scheduler = scheduler
@@ -64,7 +64,7 @@ private struct ReactiveURLSessionDelayableMock: ReactiveURLSessionProtocol {
 private struct URLSessionFactory<Target: ProductionTargetType> {
     let target: Target
     
-    func makeURLSession(stubBehavior: StubBehavior<Target.TargetStub>,
+    func makeURLSession(stubBehavior: StubBehavior,
                         scheduler: SchedulerType) -> ReactiveURLSessionProtocol {
         switch stubBehavior {
         case .delayed(let time, let stub) where time > 0:
