@@ -1,3 +1,7 @@
+# [0.2.2] - 2018-10-12
+### Fixed
+- `TargetType` can now be implemented via extension to a `ProductionTargetType` in a separate target
+
 # [0.2.1] - 2018-09-22
 ### Added
 - Support to Swift 4.2 (still works with Swift 4.1)
