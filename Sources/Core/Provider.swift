@@ -23,7 +23,7 @@ final public class Provider<Target: ProductionTargetType> {
     }
     
     public func request(_ target: Target) -> Single<Data> {
-        guard let url = URL(string: target.baseURL.absoluteString + target.path) else {
+        guard let url = URL(string: target.path, relativeTo: target.baseURL) else {
             return .error(ProviderError.invalidURL)
         }
         
