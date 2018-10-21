@@ -14,7 +14,7 @@ xcode_workspace: RxCocoaNetworking.xcworkspace
 before_install:
   - bundle install --path vendor/bundle
   - carthageversion=$(carthage version)
-  - if [ $carthageversion != "0.29.0" ]; then brew uninstall carthage; HOMEBREW_NO_AUTO_UPDATE=1 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/45dd24d8dfa7a2fb69812c678ceb34be0c16e295/Formula/carthage.rb; fi
+  - if [ $carthageversion != "0.34.0" ]; then brew uninstall carthage; HOMEBREW_NO_AUTO_UPDATE=1 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/09ceff6c1de7ebbfedb42c0941a48bfdca932c0f/Formula/carthage.rb; fi
 
 before_script:
   - script/wiremock.sh &
