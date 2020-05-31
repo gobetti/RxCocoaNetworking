@@ -10,8 +10,8 @@
 import RxSwift
 
 /// Based off https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Observables/Materialize.swift
-extension PrimitiveSequenceType where TraitType == SingleTrait {
-    public func materialize() -> Single<SingleEvent<ElementType>> {
+extension PrimitiveSequenceType where Trait == SingleTrait {
+    public func materialize() -> Single<SingleEvent<Element>> {
         return self
             .map { .success($0) }
             .catchError { .just(SingleEvent.error($0)) }

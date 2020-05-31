@@ -24,8 +24,8 @@ class ProviderTests: XCTestCase {
     func testValidURLRequestSucceeds() {
         let events = simulatedEvents()
         let expected = [
-            next(initialTime, dummyData),
-            completed(initialTime)
+            Recorded.next(initialTime, dummyData),
+            Recorded.completed(initialTime)
         ]
         XCTAssertEqual(events, expected)
     }
@@ -42,8 +42,8 @@ class ProviderTests: XCTestCase {
         let events = simulatedEvents(stubBehavior: .delayed(time: responseDelay, stub: .success(dummyData)))
         
         let expected = [
-            next(integerResponseDelay, dummyData),
-            completed(integerResponseDelay)
+            Recorded.next(integerResponseDelay, dummyData),
+            Recorded.completed(integerResponseDelay)
         ]
         
         XCTAssertEqual(events, expected)
@@ -53,8 +53,8 @@ class ProviderTests: XCTestCase {
         let events = simulatedEvents(stubBehavior: .delayed(time: -1, stub: .success(dummyData)))
         
         let expected = [
-            next(initialTime, dummyData),
-            completed(initialTime)
+            Recorded.next(initialTime, dummyData),
+            Recorded.completed(initialTime)
         ]
         
         XCTAssertEqual(events, expected)
@@ -64,8 +64,8 @@ class ProviderTests: XCTestCase {
         let events = simulatedEvents(stubBehavior: .delayed(time: 0, stub: .success(dummyData)))
         
         let expected = [
-            next(initialTime, dummyData),
-            completed(initialTime)
+            Recorded.next(initialTime, dummyData),
+            Recorded.completed(initialTime)
         ]
         
         XCTAssertEqual(events, expected)
@@ -76,8 +76,8 @@ class ProviderTests: XCTestCase {
         let events = simulatedEvents(stubBehavior: .immediate(stub: .success(stubbedData)))
         
         let expected = [
-            next(initialTime, stubbedData),
-            completed(initialTime)
+            Recorded.next(initialTime, stubbedData),
+            Recorded.completed(initialTime)
         ]
         
         XCTAssertEqual(events, expected)
@@ -114,8 +114,8 @@ class ProviderTests: XCTestCase {
                                      target: MockTarget.validURL)
         
         let expected = [
-            next(initialTime, MockTarget.validURL.sampleData),
-            completed(initialTime)
+            Recorded.next(initialTime, MockTarget.validURL.sampleData),
+            Recorded.completed(initialTime)
         ]
         
         XCTAssertEqual(events, expected)
@@ -127,8 +127,8 @@ class ProviderTests: XCTestCase {
                                      target: MockTarget.validURL)
         
         let expected = [
-            next(initialTime, stubbedData),
-            completed(initialTime)
+            Recorded.next(initialTime, stubbedData),
+            Recorded.completed(initialTime)
         ]
         
         XCTAssertEqual(events, expected)

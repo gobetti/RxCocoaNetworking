@@ -54,7 +54,7 @@ private struct ReactiveURLSessionMock: ReactiveURLSessionProtocol {
 private struct ReactiveURLSessionDelayableMock: ReactiveURLSessionProtocol {
     fileprivate let stubbed: Observable<Data>
     fileprivate let scheduler: SchedulerType
-    fileprivate let delay: TimeInterval
+    fileprivate let delay: DispatchTimeInterval
     
     func data(request: URLRequest) -> Observable<Data> {
         return stubbed.delay(delay, scheduler: scheduler)
@@ -70,7 +70,7 @@ private struct URLSessionFactory<Target: ProductionTargetType> {
         case .delayed(let time, let stub) where time > 0:
             return ReactiveURLSessionDelayableMock(stubbed: target.makeResponse(from: stub),
                                                    scheduler: scheduler,
-                                                   delay: time)
+                                                   delay: .nanoseconds(Int(time * Double(NSEC_PER_SEC))))
         case .delayed(_, let stub):
             return ReactiveURLSessionMock(stubbed: target.makeResponse(from: stub))
         case .immediate(let stub):
