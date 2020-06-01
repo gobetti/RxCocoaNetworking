@@ -22,7 +22,8 @@ final class RxCocoaNetworkingSpec: QuickSpec {
                     
                     it("has valid URL with parameters") {
                         expect(parameterizedRequest.url!.absoluteString)
-                            .to(equal("www.test.com/test?param1=value1&param2=value2"))
+                            .to(satisfyAnyOf(equal("www.test.com/test?param1=value1&param2=value2"),
+                                             equal("www.test.com/test?param2=value2&param1=value1")))
                     }
                 }
                 
@@ -32,30 +33,6 @@ final class RxCocoaNetworkingSpec: QuickSpec {
                     it("has the URL untouched") {
                         expect(parameterizedRequest.url!.absoluteString)
                             .to(equal(request.url!.absoluteString))
-                    }
-                }
-                
-                context("and a key is invalid") {
-                    beforeEach {
-                        let invalidKey = String(bytes: [0xD8, 0x00] as [UInt8], encoding: .utf16BigEndian)!
-                        parameters = ["param1": "value1", "\(invalidKey)": "value2"]
-                    }
-                    
-                    it("has valid URL without the invalid parameters") {
-                        expect(parameterizedRequest.url!.absoluteString)
-                            .to(equal("www.test.com/test?param1=value1"))
-                    }
-                }
-                
-                context("and a value is invalid") {
-                    beforeEach {
-                        let invalidValue = String(bytes: [0xD8, 0x00] as [UInt8], encoding: .utf16BigEndian)!
-                        parameters = ["param1": "value1", "param2": "\(invalidValue)"]
-                    }
-                    
-                    it("has valid URL without the invalid parameters") {
-                        expect(parameterizedRequest.url!.absoluteString)
-                            .to(equal("www.test.com/test?param1=value1"))
                     }
                 }
                 
